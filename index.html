@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background: #CBBB9B;
+        font-family: "Helvetica", "Arial";
+      }
+      #page_title {
+        padding: 10px 0px 0px 5px;
+      }
+      #map {
+        height: 800px;
+        width: 100%;
+      }
+      .content {
+        float: left;
+        padding-left: 10px;
+        letter-spacing: 1;
+      }
+      img {
+        float : right;
+      }
+      #footer {
+        float: right;
+        padding: 10px 5px 0px 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="pageTitle">My first map</h1>
+    <div id="map"></div>
+    <div id="footer">Thank's for watching // <b>Thony Price</b></div>
+    <script>
+      function initMap() {
+
+        // Declare positions to be used
+        var home = {lat: 59.312211, lng: 18.073798};
+        var school = {lat: 59.346715, lng: 18.072288};
+
+        // Init map
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: home
+        });
+
+        // Add clickable marker
+        var markerHome = new google.maps.Marker({
+          position: home,
+          map: map
+        });
+
+        markerHome.addListener('click', function() {
+          infoHome.open(map, markerHome);
+          });
+
+        // Define content for info window
+        var contentHome = ''+
+          '<div id="content" class="content">'+
+            '<h2 id="firstHeading" class="firstHeading">Skrapan</h2>'+
+            '<p><b>Skrapan</b>, also known as Student Skrapan, was originally '+
+            'built for the Swedish IRS but was redesigned in 2007 and now houses '+
+            'over 500 condos for students. I&#39;ve lived here for two now years '+
+            'now with my girlfriend Hanna and we both like it here.</p>'+
+            '<img src="http://www.nackastentryckeri.se/wp-content/uploads/2014/12/SkrapanOrange.png"'+
+            'alt="Workstation" style="width230px;height:150px;"></p>'+
+            '<p>Here&#39;s a picture of the building taken from the main entrance</br>'+
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget nibh lacus. Donec at enim pellentesque, '+
+            'cursus est at, malesuada urna. Praesent lacinia feugiat leo, ac imperdiet elit dictum vitae. Proin lacinia '+
+            'sem ac ipsum fermentum tristique. Vestibulum faucibus tortor vitae erat suscipit aliquam. Mauris interdum '+
+            'rutrum augue, ut ultricies orci. Etiam lobortis, mi in mattis scelerisque, elit quam mattis odio, posuere '+
+            'vulputate arcu dolor vitae urna. Cras euismod risus a ornare tristique.</p>'+
+            '<p>Click this link for more information on Skrapan<br>'+
+            '<a href="https://en.wikipedia.org/wiki/Skatteskrapan" target="_blank">Wikipedia</a>'
+          '</div>'
+
+        var infoHome = new google.maps.InfoWindow({
+          content: contentHome
+        });
+
+        var markerSchool = new google.maps.Marker({
+          position: school,
+          map: map
+        });
+
+        markerSchool.addListener('click', function() {
+          infoSchool.open(map, markerSchool);
+        });
+
+        var contentSchool = ''+
+          '<div id="content" class="content">'+
+            '<h2>KTH</h2><p>I enrolled in the program for Master in Science in'+
+            'Computer Science in 2015. Next semester I am doing my third year '+
+            'out of five and so far I am truly enjoying it. This fall I&#39;ll'+
+            'start applying for courses on the master level and are looking forward'+
+            'to both AI and machine learning courses.</p>'+
+            '<p>KTH is a great university it is, or so I&#39;m told, internationally'+
+            'well known and therefore has some great exchange agreements with some'+
+            'cool unis world wide. I&#39;m aiming for an application to '+
+            '<a href="http://www.calpoly.edu/" target="_blank"> California Polytechnic </a>'+
+            'in 2018.</p> <img src="https://kth.kattis.com/images/site-logo" alt="Logo"'+
+            'style="width:150px;height:150px;"'+
+          '</div>'
+
+        var infoSchool = new google.maps.InfoWindow({
+          content: contentSchool
+        })
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFxBSTTS8-q2X2D8ZkF-0QFTH64QjD5eM&callback=initMap">
+    </script>
+  </body>
+</html>
