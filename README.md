@@ -1,5 +1,5 @@
 # Maps playground
-Learning HTML/CSS/Google Maps API
+Learning HTML/CSS/Google Maps API</br>
 Target:
 1. Create a full screen map using the Javascript Google Maps SDK in an index.html file
 2. Add on it a couple of markers that are positioned in 2 places that you decide
