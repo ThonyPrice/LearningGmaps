@@ -7,7 +7,9 @@
         font-family: "Helvetica", "Arial";
       }
       #page_title {
-        padding: 10px 0px 0px 5px;
+        background: #CBCB9B;
+        padding: 5px 0px 5px 50px;
+        letter-spacing: 2px;
       }
       #map {
         height: 800px;
@@ -16,19 +18,20 @@
       .content {
         float: left;
         padding-left: 10px;
-        letter-spacing: 1;
+        padding-left: 5px;
+        letter-spacing: 2;
       }
       img {
         float : right;
       }
       #footer {
         float: right;
-        padding: 10px 5px 0px 0px;
+        padding: 15px 5px 0px 0px;
       }
     </style>
   </head>
   <body>
-    <h1 id="pageTitle">My first map</h1>
+    <div id="page_title"><h1>My first map</h1></div>
     <div id="map"></div>
     <div id="footer">Thank's for watching // <b>Thony Price</b></div>
     <script>
@@ -38,22 +41,170 @@
         var home = {lat: 59.312211, lng: 18.073798};
         var school = {lat: 59.346715, lng: 18.072288};
         var parents = {lat: 59.283278, lng: 18.063085};
+        var climb = {lat: 59.281412, lng: 18.148107};
 
-        // Init map
+        // Create a new StyledMapType object, passing it an array of styles,
+        var styledMapType = new google.maps.StyledMapType(
+            [
+              {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
+              {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+              {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
+              {
+                featureType: 'administrative',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#c9b2a6'}]
+              },
+              {
+                featureType: 'administrative.land_parcel',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#dcd2be'}]
+              },
+              {
+                featureType: 'administrative.land_parcel',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#ae9e90'}]
+              },
+              {
+                featureType: 'landscape.natural',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+              },
+              {
+                featureType: 'poi',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+              },
+              {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#93817c'}]
+              },
+              {
+                featureType: 'poi.park',
+                elementType: 'geometry.fill',
+                stylers: [{color: '#a5b076'}]
+              },
+              {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#447530'}]
+              },
+              {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{color: '#f5f1e6'}]
+              },
+              {
+                featureType: 'road.arterial',
+                elementType: 'geometry',
+                stylers: [{color: '#fdfcf8'}]
+              },
+              {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{color: '#f8c967'}]
+              },
+              {
+                featureType: 'road.highway',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#e9bc62'}]
+              },
+              {
+                featureType: 'road.highway.controlled_access',
+                elementType: 'geometry',
+                stylers: [{color: '#e98d58'}]
+              },
+              {
+                featureType: 'road.highway.controlled_access',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#db8555'}]
+              },
+              {
+                featureType: 'road.local',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#806b63'}]
+              },
+              {
+                featureType: 'transit.line',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+              },
+              {
+                featureType: 'transit.line',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#8f7d77'}]
+              },
+              {
+                featureType: 'transit.line',
+                elementType: 'labels.text.stroke',
+                stylers: [{color: '#ebe3cd'}]
+              },
+              {
+                featureType: 'transit.station',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+              },
+              {
+                featureType: 'water',
+                elementType: 'geometry.fill',
+                stylers: [{color: '#b9d3c2'}]
+              },
+              {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#92998d'}]
+              }
+            ],
+            {name: 'Styled Map'});
+
+        // Initialize map
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
-          center: home
+          center: home,
+          mapTypeControlOptions: {
+            mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
+          }
         });
 
-        // Add clickable marker
+        map.mapTypes.set('styled_map', styledMapType);
+        map.setMapTypeId('styled_map');
+
+        // Add clickable markers
         var markerHome = new google.maps.Marker({
           position: home,
+          map: map
+        });
+
+        var markerSchool = new google.maps.Marker({
+          position: school,
+          map: map
+        });
+
+        var markerParents = new google.maps.Marker({
+          position: parents,
+          map: map
+        });
+
+        var markerClimbing = new google.maps.Marker({
+          position: climb,
           map: map
         });
 
         markerHome.addListener('click', function() {
           infoHome.open(map, markerHome);
           });
+
+        markerSchool.addListener('click', function() {
+          infoSchool.open(map, markerSchool);
+        });
+
+        markerParents.addListener('click', function() {
+          infoParents.open(map, markerParents);
+        });
+
+        markerClimbing.addListener('click', function() {
+          infoClimbing.open(map, markerClimbing);
+        });
 
         // Define content for info window
         var contentHome = ''+
@@ -75,27 +226,14 @@
             '<a href="https://en.wikipedia.org/wiki/Skatteskrapan" target="_blank">Wikipedia</a>'
           '</div>'
 
-        var infoHome = new google.maps.InfoWindow({
-          content: contentHome
-        });
-
-        var markerSchool = new google.maps.Marker({
-          position: school,
-          map: map
-        });
-
-        markerSchool.addListener('click', function() {
-          infoSchool.open(map, markerSchool);
-        });
-
         var contentSchool = ''+
           '<div id="content" class="content">'+
             '<h2>KTH</h2><p>I enrolled in the program M.Sc. in'+
             'Computer Science in 2015. Next semester I am doing my third year '+
-            'out of five and so far I am truly enjoying it. This fall I&#39;ll'+
-            'start applying for courses on the master level and are looking forward'+
+            'out of five and so far I am truly enjoying it. This fall I&#39;ll '+
+            'start applying for courses on the master level and are looking forward '+
             'to both AI and machine learning courses.</p>'+
-            '<p>KTH is a great university it is, or so I&#39;m told, internationally'+
+            '<p>KTH is a great university imo. Also it is, or so I&#39;m told, internationally'+
             'well known and therefore has some great exchange agreements with some'+
             'cool unis world wide. I&#39;m aiming for an application to '+
             '<a href="http://www.calpoly.edu/" target="_blank"> California Polytechnic </a>'+
@@ -103,22 +241,49 @@
             'style="width:150px;height:150px;"'+
           '</div>'
 
+        var contentParents = ''+
+          '<div id="content" class ="content">'+
+            '<h2>Parents&#39; home</h2>'+
+            '<p>I grew up in this house and area along with 8 siblings.</p>'+
+            '<p>Fusce pretium vehicula ornare. Aliquam tincidunt libero non sodales '+
+            'condimentum. Fusce dignissim scelerisque ipsum in fermentum. Quisque '+
+            'neque sapien, molestie a arcu non, pellentesque euismod nisi. Donec '+
+            'placerat a lectus nec interdum. Vestibulum sit amet gravida purus, at '+
+            'molestie velit. Maecenas cursus tempus mauris, ac ultrices turpis laoreet '+
+            'non. Praesent in metus nec justo lacinia bibendum. Quisque eu nibh '+
+            'tincidunt massa ultrices rhoncus. Cras rhoncus ullamcorper scelerisque.</p>'+
+            '<img src="http://i21.photobucket.com/albums/b284/ThonyS/public/Screen%20Shot%202017-06-03%20at%2009.07.36.jpg"'+
+            'alt="House" style="width130px;height:200px;">'+
+          '</div>'
+
+        var contentClimbing = ''+
+          '<div id="content" class ="content">'+
+            '<h2>Rock climbing</h2>'+
+            '<p>In my spare time I like to get outdoors. I have been doing rock '+
+            'climbing for about 5 years and usually plan one climbing trip a year. '+
+            'This year the destination is Arco in Italy where I am going in August.</p>'+
+            '<img src="http://i21.photobucket.com/albums/b284/ThonyS/public/IMG_20170423_170237.jpg"'+
+            'alt="House" style="width250px;height:230px;">'+
+            '<p>This picture is of my favourite crag in Stockholm, it is called Noret. '+
+            'Rock quality is great and the view of the archipelago is nice.</p>'
+          '</div>'
+
+        var infoHome = new google.maps.InfoWindow({
+          content: contentHome
+        });
+
         var infoSchool = new google.maps.InfoWindow({
           content: contentSchool
         })
 
-        var markerParents = new google.maps.Marker({
-          position: parents,
-          map: map
-        });
-
-        markerParents.addListener('click', function() {
-          infoParents.open(map, markerParents);
-        });
-
         var infoParents = new google.maps.InfoWindow({
-          content: "Hello world!"
+          content: contentParents
         })
+
+        var infoClimbing = new google.maps.InfoWindow({
+          content: contentClimbing
+        })
+
       }
     </script>
     <script async defer
