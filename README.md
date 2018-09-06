@@ -11,4 +11,4 @@ Hobby project for learning HTML/CSS/Google Maps API with following targets;
 5. Make sure that the visualization on mobile is looking decent
 6. Explore adding visual effects and make the map more fancy! :star:
 
-Preview curently available at https://thonyprice.github.io/maps_playground/
+Preview curently available at https://thonyprice.github.io/LearningGmaps/
